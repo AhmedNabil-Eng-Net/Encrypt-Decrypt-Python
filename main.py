@@ -121,21 +121,20 @@ def load_key(key_name, chars):
 
 
 # Generate a new random encryption key
-def generating_key(chars):
-    print("🔄 Generating a new key...")
+def generating_key(chars, show_message=True):
+    if show_message:
+        print("🔄 generate a new key...")
+        time.sleep(1)
+        
+        print(f'{Fore.GREEN}✅ New key generated successfully!{Style.RESET_ALL}')
+        time.sleep(1.5)
+        clear_screen()
 
     keys = chars.copy()
     random.shuffle(keys)
 
     encryption_key = dict(zip(chars, keys))
     decryption_key = dict(zip(keys, chars))
-
-    time.sleep(1)
-
-    print(f'{Fore.GREEN}✅ New key generated successfully!{Style.RESET_ALL}')
-
-    time.sleep(1.5)
-    clear_screen()
 
     return keys, encryption_key, decryption_key
 
@@ -157,14 +156,14 @@ chars = " " + string.punctuation + string.digits + string.ascii_letters
 chars = list(chars)
 
 # Controls the main program loop
-generating = True
+loop = True
 
 
 # Main program loop
-while generating:
+while loop:
 
     # Generate a key for the current session
-    keys, encryption_key, decryption_key = generating_key(chars)
+    keys, encryption_key, decryption_key = generating_key(chars, False)
 
     while True:
 
@@ -217,7 +216,7 @@ while generating:
         # Exit the application
         elif choice == "7":
             exit_app()
-            generating = False
+            loop = False
             break
 
         # Handle invalid menu choices
